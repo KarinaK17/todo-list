@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+  background-color: beige;
+  /* font-family: "Noto Serif", serif; */
+}
+
+footer {
+  flex-shrink: 0;
+  background-color: rgb(87, 87, 87);
+  color: white;
+  padding: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+  /* font-family: "Noto Serif", serif; */
+  border-top: 2px solid rgb(79, 30, 88);
+}
+
+.header {
+  flex-shrink: 0;
+  background-color: rgb(222, 255, 168);
+  text-align: center;
+  border-bottom: 2px black solid;
+  /* font-family: "Courgette", cursive; */
+  padding: 1rem;
+  font-size: clamp(30px, 3.3rem, 4vw);
+}
