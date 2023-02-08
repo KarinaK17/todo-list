@@ -3,6 +3,12 @@
   padding: 0;
 }
 
+div {
+  border: 2px black solid;
+  padding: 10px;
+  margin: 3px;
+}
+
 html,
 body {
   height: 100%;
@@ -17,6 +23,7 @@ body {
   flex: 1 0 auto;
   background-color: beige;
   /* font-family: "Noto Serif", serif; */
+  position: relative;
 }
 
 footer {
@@ -38,4 +45,39 @@ footer {
   /* font-family: "Courgette", cursive; */
   padding: 1rem;
   font-size: clamp(30px, 3.3rem, 4vw);
+}
+
+.project-form-window {
+  display: none;
+  background-color: rgba(0, 0, 80, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+}
+
+.project-form {
+  background-color: antiquewhite;
+}
+
+.project {
+  background-color: aqua;
+}
+
+.tasks-container {
+  background-color: white;
+}
+
+.task-form-window {
+  display: none;
+  background-color: rgba(0, 80, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* display: flex; */
+  align-items: center;
 }
