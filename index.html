@@ -11,14 +11,45 @@
   <body>
     <div class="header">My ToDo List</div>
     <div class="content">
-      <button type="button">Add a new category of tasks</button>
+      <button type="button" class="open-project-form">
+        Add a new category of tasks
+      </button>
       <div class="project-form-window">
         <div class="project-form">
+          <h3>Project Form</h3>
           <form>
-            <label for="form-name">Name of the category: </label>
-            <input type="text" id="form-name" name="form-name" />
-            <button>Add a new category</button>
-            <button type="button">Cancel</button>
+            <label for="project-name">Name of the category: </label>
+            <input type="text" id="project-name" name="project-name" />
+            <button class="add-project">Add a new category</button>
+            <button type="button" class="cancel-project">Cancel</button>
+          </form>
+        </div>
+      </div>
+      <div class="task-form-window">
+        <div class="task-form">
+          <h3>Task Form</h3>
+          <form>
+            <label for="task-title">Title: </label>
+            <input type="text" id="task-title" name="task-title" />
+
+            <label for="task-description">Description: </label>
+            <input type="text" id="task-description" name="task-description" />
+
+            <label for="task-date">Due date: </label>
+            <input type="date" id="task-date" name="task-date" />
+
+            <label for="task-priority">Priority: </label>
+            <input
+              type="text"
+              id="task-priority"
+              name="task-priority"
+              placeholder="put 1 for most important and 3 for the least important"
+            />
+
+            <label for="task-complete">Complete: </label>
+            <input type="checkbox" id="task-complete" name="task-complete" />
+            <button class="add-task">Add a new task</button>
+            <button type="button" class="cancel-task">Cancel</button>
           </form>
         </div>
       </div>
