@@ -11,50 +11,111 @@
   <body>
     <div class="header">My ToDo List</div>
     <div class="content">
-      <button type="button" class="open-project-form">
-        Add a new category of tasks
-      </button>
-      <div class="project-form-window">
-        <div class="project-form">
-          <h3>Project Form</h3>
-          <form>
-            <label for="project-name">Name of the category: </label>
-            <input type="text" id="project-name" name="project-name" />
-            <button class="add-project">Add a new category</button>
-            <button type="button" class="cancel-project">Cancel</button>
-          </form>
+      <div class="board">
+        <button type="button" class="open-project-form">
+          Add a new category of tasks
+        </button>
+        <div class="project-form-window">
+          <div class="project-form">
+            <h3>Project Form</h3>
+            <form>
+              <p>
+                <label for="project-name">Name of the category: </label>
+                <input type="text" id="project-name" name="project-name" />
+              </p>
+              <button class="add-project">Add a new category</button>
+              <button type="button" class="cancel-project">Cancel</button>
+            </form>
+          </div>
         </div>
-      </div>
-      <div class="task-form-window">
-        <div class="task-form">
-          <h3>Task Form</h3>
-          <form>
-            <label for="task-title">Title: </label>
-            <input type="text" id="task-title" name="task-title" />
-
-            <label for="task-description">Description: </label>
-            <input type="text" id="task-description" name="task-description" />
-
-            <label for="task-date">Due date: </label>
-            <input type="date" id="task-date" name="task-date" />
-
-            <label for="task-priority">Priority: </label>
-            <input
-              type="text"
-              id="task-priority"
-              name="task-priority"
-              placeholder="put 1 for most important and 3 for the least important"
-            />
-
-            <label for="task-complete">Complete: </label>
-            <input type="checkbox" id="task-complete" name="task-complete" />
-            <button class="add-task">Add a new task</button>
-            <button type="button" class="cancel-task">Cancel</button>
-          </form>
+        <div class="task-form-window">
+          <div class="task-form">
+            <h3>Task Form</h3>
+            <form>
+              <p>
+                <label for="task-title">Title: </label>
+                <input type="text" id="task-title" name="task-title" />
+              </p>
+              <p>
+                <label for="task-description">Description: </label>
+                <input
+                  type="text"
+                  id="task-description"
+                  name="task-description"
+                />
+              </p>
+              <p>
+                <label for="task-date">Due date: </label>
+                <input type="date" id="task-date" name="task-date" />
+              </p>
+              <p>
+                <label for="task-priority">High priority: </label>
+                <input
+                  type="checkbox"
+                  id="task-priority"
+                  name="task-priority"
+                />
+              </p>
+              <button class="add-task">Add a new task</button>
+              <button type="button" class="cancel-task">Cancel</button>
+            </form>
+          </div>
         </div>
+        <div class="view-task-window">
+          <div class="view-task">
+            <h3>Task Information</h3>
+            <form>
+              <p>
+                <label for="task-title-v">Title: </label>
+                <input type="text" id="task-title-v" name="task-title-v" />
+              </p>
+              <p>
+                <label for="task-description-v">Description: </label>
+                <input
+                  type="text"
+                  id="task-description-v"
+                  name="task-description-v"
+                />
+              </p>
+              <p>
+                <label for="task-date-v">Due date: </label>
+                <input type="date" id="task-date-v" name="task-date-v" />
+              </p>
+              <p>
+                <label for="task-priority-v">High priority: </label>
+                <input
+                  type="checkbox"
+                  id="task-priority-v"
+                  name="task-priority-v"
+                />
+              </p>
+              <button class="edit-task">Edit task</button>
+              <button type="button" class="close-task">Close</button>
+            </form>
+          </div>
+        </div>
+        <div class="projects-container"></div>
       </div>
-      <div class="projects-container"></div>
     </div>
-    <footer>Made by Karina Korchinskaya</footer>
+    <footer>
+      Photos by
+      <a
+        href="https://pixabay.com/ru/users/publicdomainpictures-14/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=72250"
+        >PublicDomainPictures</a
+      >,
+      <a
+        href="https://pixabay.com/ru/users/peggy_marco-1553824/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1027765"
+        >Peggy und Marco Lachmann-Anke</a
+      >,
+      <a
+        href="https://pixabay.com/ru/users/openclipart-vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=146214"
+        >OpenClipart-Vectors</a
+      >
+      form
+      <a
+        href="https://pixabay.com/ru//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=146214"
+        >Pixabay</a
+      >
+    </footer>
   </body>
 </html>
