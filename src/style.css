@@ -1,12 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Kalam&family=Patrick+Hand&display=swap");
+
 * {
   margin: 0;
   padding: 0;
-}
-
-div {
-  border: 2px black solid;
-  padding: 10px;
-  margin: 3px;
+  font-family: "Kalam", cursive;
 }
 
 html,
@@ -17,67 +14,234 @@ body {
 body {
   display: flex;
   flex-direction: column;
+  background-color: rgb(161, 183, 255);
 }
 
 .content {
   flex: 1 0 auto;
-  background-color: beige;
-  /* font-family: "Noto Serif", serif; */
+  background-color: rgb(255, 255, 255);
+  background-image: url(./wood-brown.jpg);
+  background-size: cover;
+  padding: min(25px, 3%);
+  display: flex;
+  border: 8px ridge rgb(117, 65, 41);
+  margin: min(40px, 2%);
+}
+
+.board {
+  flex: 1 0 auto;
   position: relative;
+  background-image: url(./background.jpg);
+  background-position: center center;
+  background-size: cover;
+  border: 8px ridge rgb(240, 172, 116);
+  display: flex;
+  flex-direction: column;
+  padding: min(20px, 3%);
+}
+
+.open-project-form {
+  align-self: center;
+  font-size: clamp(15px, 1.6rem, 1.8vw);
+  padding: 0 10px;
+  border-radius: 10px;
+  background-color: rgb(117, 65, 41);
+  color: white;
+  border: rgb(117, 65, 41) 2px outset;
+  cursor: cell;
+  margin-bottom: 1rem;
+}
+
+.open-project-form:hover {
+  transform: scale(1.01);
+  box-shadow: 2px 2px 5px black;
+}
+
+.open-task-form-btn {
+  margin-bottom: 10px;
 }
 
 footer {
   flex-shrink: 0;
-  background-color: rgb(87, 87, 87);
+  background-color: rgb(46, 24, 20);
   color: white;
   padding: 8px;
   font-size: 0.9rem;
   text-align: center;
-  /* font-family: "Noto Serif", serif; */
-  border-top: 2px solid rgb(79, 30, 88);
+}
+
+a:link {
+  color: rgb(255, 254, 201);
+}
+
+a:visited {
+  color: rgb(161, 183, 255);
 }
 
 .header {
   flex-shrink: 0;
-  background-color: rgb(222, 255, 168);
+  background-color: rgb(46, 24, 20);
   text-align: center;
   border-bottom: 2px black solid;
-  /* font-family: "Courgette", cursive; */
-  padding: 1rem;
-  font-size: clamp(30px, 3.3rem, 4vw);
+  padding: 0.8rem;
+  font-size: clamp(30px, 3.5rem, 5vw);
+  color: white;
 }
 
 .project-form-window {
   display: none;
-  background-color: rgba(0, 0, 80, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   align-items: center;
-}
-
-.project-form {
-  background-color: antiquewhite;
+  justify-content: center;
+  z-index: 1;
 }
 
 .project {
-  background-color: aqua;
+  background-color: rgb(255, 254, 201);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  max-height: 400px;
+  box-shadow: 3px 3px 10px rgb(0, 0, 0);
+  padding: min(20px, 5%);
 }
 
-.tasks-container {
-  background-color: white;
+.project:hover {
+  transform: scale(1.01) rotate(0.003turn);
+}
+
+h2 {
+  align-self: center;
+  font-size: clamp(15px, 1.8rem, 2vw);
+}
+
+.pin {
+  height: 40px;
+  width: auto;
+  align-self: center;
 }
 
 .task-form-window {
   display: none;
-  background-color: rgba(0, 80, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  /* display: flex; */
   align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.view-task-window {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.projects-container {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+  align-items: start;
+  flex: 1 0 auto;
+}
+
+.project button {
+  font-size: clamp(20px, 1.3rem, 1.8vw);
+  padding: 0 6px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  border: rgb(255, 228, 77) 2px outset;
+  cursor: pointer;
+}
+
+.project button:hover {
+  transform: scale(1.01);
+  box-shadow: 2px 2px 5px black;
+}
+
+.task {
+  background-color: white;
+  border-radius: 10px;
+  font-size: clamp(15px, 1.1rem, 1.5vw);
+  margin: 10px 0;
+  padding: min(13px, 3%);
+  box-shadow: 1px 1px 3px black;
+}
+
+.short-task {
+  display: inline;
+  margin-left: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.task button {
+  font-size: clamp(15px, 1.1rem, 1.5vw);
+  padding: 0 6px;
+  border-radius: 10px;
+  background-color: rgb(161, 183, 255);
+  border: rgb(63, 107, 250) 2px outset;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.task button:hover {
+  transform: scale(1.01);
+  box-shadow: 1px 1px 5px black;
+}
+
+.delete-project-btn {
+  align-self: center;
+}
+
+.project-form,
+.task-form,
+.view-task {
+  background-color: white;
+  border: 2px black solid;
+  padding: min(20px, 5%);
+  font-size: clamp(15px, 1.2rem, 1.5vw);
+}
+
+.project-form p,
+.task-form p,
+.view-task p {
+  margin-bottom: 8px;
+}
+
+.project-form h3,
+.task-form h3,
+.view-task h3 {
+  font-size: clamp(23px, 1.7rem, 2vw);
+}
+
+.project-form input,
+.task-form input,
+.view-task input {
+  font-size: clamp(15px, 1.2rem, 1.5vw);
+}
+
+.project-form button,
+.task-form button,
+.view-task button {
+  font-size: clamp(15px, 1.2rem, 1.5vw);
 }

@@ -6,6 +6,267 @@ const addProject = document.querySelector(".add-project");
 const cancelProject = document.querySelector(".cancel-project");
 const addTaskBtn = document.querySelector(".add-task");
 const cancelTaskBtn = document.querySelector(".cancel-task");
+const editTaskBtn = document.querySelector(".edit-task");
+const closeEditTaskBtn = document.querySelector(".close-task");
+
+function displayProjects() {
+  projectsContainer.innerHTML = "";
+  for (let i = 0; i < projects.length; i++) {
+    const p = document.createElement("div");
+    projectsContainer.appendChild(p);
+    p.dataset.p = i;
+    p.classList.add("project");
+
+    const pin = document.createElement("img");
+    pin.classList.add("pin");
+    pin.setAttribute("src", "./pin.svg");
+    pin.setAttribute("alt", "pin");
+
+    const pName = document.createElement("h2");
+    pName.dataset.pn = p.dataset.p;
+    pName.textContent = `${projects[pName.dataset.pn].name}`;
+
+    const taskContainer = document.createElement("div");
+    taskContainer.classList.add("task-container");
+    taskContainer.dataset.tc = p.dataset.p;
+
+    const openTaskFormBtn = document.createElement("button");
+    openTaskFormBtn.textContent = "Add a new task!";
+    openTaskFormBtn.classList.add("open-task-form-btn");
+    openTaskFormBtn.dataset.otf = taskContainer.dataset.tc;
+    taskContainer.appendChild(openTaskFormBtn);
+    openTaskFormBtn.addEventListener("click", () => {
+      addTaskBtn.dataset.at = taskContainer.dataset.tc;
+      openTaskForm();
+    });
+
+    for (let j = 0; j < projects[i].tasks.length; j++) {
+      const taskDiv = document.createElement("div");
+      taskDiv.classList.add("task");
+      taskDiv.dataset.tn = j;
+      taskDiv.dataset.pc = openTaskFormBtn.dataset.otf;
+      taskContainer.appendChild(taskDiv);
+
+      const changeStatus = document.createElement("input");
+      changeStatus.setAttribute("type", "checkbox");
+      changeStatus.dataset.cp = taskDiv.dataset.pc;
+      changeStatus.dataset.c = taskDiv.dataset.tn;
+      changeStatus.checked =
+        projects[changeStatus.dataset.cp].tasks[
+          changeStatus.dataset.c
+        ].complete;
+      changeStatus.addEventListener("change", () => {
+        if (
+          projects[changeStatus.dataset.cp].tasks[changeStatus.dataset.c]
+            .complete === false
+        ) {
+          projects[changeStatus.dataset.cp].tasks[
+            changeStatus.dataset.c
+          ].complete = true;
+          if (
+            document.querySelector(
+              `[data-complete="${taskDiv.dataset.tn}"][data-completep="${taskDiv.dataset.pc}"]`
+            ) !== null
+          ) {
+            document.querySelector(
+              `[data-complete="${taskDiv.dataset.tn}"][data-completep="${taskDiv.dataset.pc}"]`
+            ).textContent = `Task complete: yes`;
+          }
+        } else {
+          projects[changeStatus.dataset.cp].tasks[
+            changeStatus.dataset.c
+          ].complete = false;
+          if (
+            document.querySelector(
+              `[data-complete="${taskDiv.dataset.tn}"][data-completep="${taskDiv.dataset.pc}"]`
+            ) !== null
+          ) {
+            document.querySelector(
+              `[data-complete="${taskDiv.dataset.tn}"][data-completep="${taskDiv.dataset.pc}"]`
+            ).textContent = `Task complete: no`;
+          }
+        }
+        console.log(
+          `inside a change-status checkbox ${
+            projects[changeStatus.dataset.cp].tasks[changeStatus.dataset.c]
+              .complete
+          }`
+        );
+      });
+
+      const shortTask = document.createElement("p");
+      shortTask.classList.add("short-task");
+      shortTask.dataset.tt = taskDiv.dataset.tn;
+      shortTask.dataset.ttp = taskDiv.dataset.pc;
+      console.log(shortTask.dataset.tt);
+      shortTask.textContent = `${
+        projects[shortTask.dataset.ttp].tasks[shortTask.dataset.tt].title
+      } due ${
+        projects[shortTask.dataset.ttp].tasks[shortTask.dataset.tt].date
+      }`;
+
+      const viewDetailsBtn = document.createElement("button");
+      viewDetailsBtn.setAttribute("type", "button");
+      viewDetailsBtn.textContent = "View details";
+      viewDetailsBtn.dataset.v = taskDiv.dataset.tn;
+      viewDetailsBtn.dataset.vp = taskDiv.dataset.pc;
+
+      viewDetailsBtn.addEventListener("click", () => {
+        if (viewDetailsBtn.textContent == "View details") {
+          viewDetailsBtn.textContent = "Hide details";
+          const details = document.createElement("div");
+          details.classList.add("details");
+          details.dataset.vd = viewDetailsBtn.dataset.v;
+          details.dataset.vdp = viewDetailsBtn.dataset.vp;
+          taskDiv.insertBefore(details, buttonContainer);
+
+          const taskTitle = document.createElement("p");
+          taskTitle.textContent = `Title: ${
+            projects[viewDetailsBtn.dataset.vp].tasks[viewDetailsBtn.dataset.v]
+              .title
+          }`;
+
+          const taskDescription = document.createElement("p");
+          taskDescription.textContent = `Description: ${
+            projects[viewDetailsBtn.dataset.vp].tasks[viewDetailsBtn.dataset.v]
+              .description
+          }`;
+
+          const taskDate = document.createElement("p");
+          taskDate.textContent = `Due date: ${
+            projects[viewDetailsBtn.dataset.vp].tasks[viewDetailsBtn.dataset.v]
+              .date
+          }`;
+
+          let important;
+
+          if (
+            projects[viewDetailsBtn.dataset.vp].tasks[viewDetailsBtn.dataset.v]
+              .priority === false
+          ) {
+            important = "no";
+          } else {
+            important = "yes";
+          }
+
+          const taskPriority = document.createElement("p");
+          taskPriority.textContent = `High priority: ${important}`;
+
+          let completeness;
+
+          if (
+            projects[viewDetailsBtn.dataset.vp].tasks[viewDetailsBtn.dataset.v]
+              .complete === false
+          ) {
+            completeness = "no";
+          } else {
+            completeness = "yes";
+          }
+
+          const taskComplete = document.createElement("p");
+          taskComplete.setAttribute("id", "completeness");
+          taskComplete.dataset.completep = taskDiv.dataset.pc;
+          taskComplete.dataset.complete = taskDiv.dataset.tn;
+          taskComplete.textContent = `Task complete: ${completeness}`;
+
+          details.append(
+            taskTitle,
+            taskDescription,
+            taskDate,
+            taskPriority,
+            taskComplete
+          );
+        } else {
+          viewDetailsBtn.textContent = "View details";
+          document
+            .querySelector(
+              `[data-tn="${viewDetailsBtn.dataset.v}"][data-pc="${viewDetailsBtn.dataset.vp}"]`
+            )
+            .removeChild(
+              document.querySelector(
+                `[data-vd="${viewDetailsBtn.dataset.v}"][data-vdp="${viewDetailsBtn.dataset.vp}"]`
+              )
+            );
+        }
+      });
+
+      const openEditBtn = document.createElement("button");
+      openEditBtn.setAttribute("type", "button");
+      openEditBtn.textContent = "Edit";
+      openEditBtn.dataset.e = taskDiv.dataset.tn;
+      openEditBtn.dataset.ep = taskDiv.dataset.pc;
+      openEditBtn.addEventListener("click", () => {
+        editTaskBtn.dataset.et = openEditBtn.dataset.e;
+        editTaskBtn.dataset.etp = openEditBtn.dataset.ep;
+        openEditTaskForm();
+        document.getElementById("task-title-v").value =
+          projects[editTaskBtn.dataset.etp].tasks[editTaskBtn.dataset.et].title;
+        document.getElementById("task-description-v").value =
+          projects[editTaskBtn.dataset.etp].tasks[
+            editTaskBtn.dataset.et
+          ].description;
+        document.getElementById("task-date-v").value =
+          projects[editTaskBtn.dataset.etp].tasks[editTaskBtn.dataset.et].date;
+        document.getElementById("task-priority-v").checked =
+          projects[editTaskBtn.dataset.etp].tasks[
+            editTaskBtn.dataset.et
+          ].priority;
+        // editTaskBtn.dataset.editTaskBtn = j;
+      });
+
+      editTaskBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        projects[editTaskBtn.dataset.etp].tasks[
+          editTaskBtn.dataset.et
+        ].editTask(
+          document.getElementById("task-title-v").value,
+          document.getElementById("task-description-v").value,
+          document.getElementById("task-date-v").value,
+          document.getElementById("task-priority-v").checked
+        );
+
+        console.log(projects);
+
+        closeEditTaskForm();
+        renewDisplay();
+      });
+
+      const deleteTaskBtn = document.createElement("button");
+      deleteTaskBtn.setAttribute("type", "button");
+      deleteTaskBtn.textContent = "Delete";
+      deleteTaskBtn.dataset.d = taskDiv.dataset.tn;
+      deleteTaskBtn.dataset.dp = taskDiv.dataset.pc;
+      deleteTaskBtn.addEventListener("click", () => {
+        projects[deleteTaskBtn.dataset.dp].deleteTask(deleteTaskBtn.dataset.d);
+        console.log(projects);
+        renewDisplay();
+      });
+
+      const buttonContainer = document.createElement("div");
+      buttonContainer.classList.add("button-container");
+      buttonContainer.append(viewDetailsBtn, openEditBtn, deleteTaskBtn);
+
+      taskDiv.append(changeStatus, shortTask, buttonContainer);
+    }
+
+    const deleteProjectBtn = document.createElement("button");
+    deleteProjectBtn.textContent = "Delete Project";
+    deleteProjectBtn.setAttribute("type", "button");
+    deleteProjectBtn.classList.add("delete-project-btn");
+    deleteProjectBtn.dataset.pd = p.dataset.p;
+    deleteProjectBtn.addEventListener("click", () => {
+      deleteProject(deleteProjectBtn.dataset.pd);
+      renewDisplay();
+      console.log(projects);
+    });
+
+    p.append(pin, pName, taskContainer, deleteProjectBtn);
+  }
+}
+
+function renewDisplay() {
+  displayProjects();
+}
 
 function openProjectForm() {
   document.querySelector(".project-form-window").style.display = "flex";
@@ -15,48 +276,12 @@ function closeProjectForm() {
   document.querySelector(".project-form-window").style.display = "none";
 }
 
-function createProject() {
-  const project = document.createElement("div");
+function openEditTaskForm() {
+  document.querySelector(".view-task-window").style.display = "flex";
+}
 
-  project.classList.add("project");
-  const projectName = document.createElement("p");
-  projectName.textContent = document.getElementById("project-name").value;
-
-  const taskContainer = document.createElement("div");
-  taskContainer.textContent = "I am a task Container";
-  projects.forEach((item) => {
-    taskContainer.dataset.number = projects.indexOf(item);
-  });
-
-  const openTaskFormBtn = document.createElement("button");
-  openTaskFormBtn.textContent = "Add a new task!";
-  openTaskFormBtn.classList.add("open-task-form-btn");
-  taskContainer.appendChild(openTaskFormBtn);
-  projects.forEach((item) => {
-    openTaskFormBtn.dataset.numberP = projects.indexOf(item);
-  });
-  openTaskFormBtn.addEventListener("click", () => {
-    openTaskForm();
-    addTaskBtn.dataset.numberProject = openTaskFormBtn.dataset.numberP;
-  });
-
-  const deleteProjectBtn = document.createElement("button");
-  deleteProjectBtn.textContent = "Delete Project";
-  deleteProjectBtn.setAttribute("type", "button");
-  projects.forEach((item) => {
-    deleteProjectBtn.dataset.numberBtn = projects.indexOf(item);
-  });
-  deleteProjectBtn.addEventListener("click", () => {
-    deleteProject(deleteProjectBtn.dataset.numberBtn);
-    projectsContainer.removeChild(project);
-    console.log(projects);
-  });
-
-  project.append(projectName, taskContainer, deleteProjectBtn);
-  projectsContainer.appendChild(project);
-  console.log("dom");
-
-  document.getElementById("project-name").value = "";
+function closeEditTaskForm() {
+  document.querySelector(".view-task-window").style.display = "none";
 }
 
 function openTaskForm() {
@@ -72,61 +297,7 @@ function createTaskDOM(projectIndex) {
     document.getElementById("task-title").value,
     document.getElementById("task-description").value,
     document.getElementById("task-date").value,
-    document.getElementById("task-priority").value,
-    document.getElementById("task-complete").checked
-  );
-}
-
-function addTaskToContainer(projectIndex) {
-  const taskDOM = document.createElement("div");
-
-  document
-    .querySelector(`[data-number="${projectIndex}"]`)
-    .appendChild(taskDOM);
-
-  const shortTask = document.createElement("p");
-  shortTask.textContent = `${document.getElementById("task-title").value} due ${
-    document.getElementById("task-date").value
-  }`;
-
-  const taskTitle = document.createElement("p");
-  taskTitle.textContent = `Title: ${
-    document.getElementById("task-title").value
-  }`;
-
-  const taskDescription = document.createElement("p");
-  taskDescription.textContent = `Description: ${
-    document.getElementById("task-description").value
-  }`;
-
-  const taskDate = document.createElement("p");
-  taskDate.textContent = `Due Date: ${
-    document.getElementById("task-date").value
-  }`;
-
-  const taskPriority = document.createElement("p");
-  taskPriority.textContent = `Priority: ${
-    document.getElementById("task-priority").value
-  }`;
-
-  let completeness;
-
-  if (document.getElementById("task-complete").value === false) {
-    completeness = "no";
-  } else {
-    completeness = "yes";
-  }
-
-  const taskComplete = document.createElement("p");
-  taskComplete.textContent = `Task complete: ${completeness}`;
-
-  taskDOM.append(
-    shortTask,
-    taskTitle,
-    taskDescription,
-    taskDate,
-    taskPriority,
-    taskComplete
+    document.getElementById("task-priority").checked
   );
 }
 
@@ -137,11 +308,15 @@ export {
   cancelProject,
   addTaskBtn,
   cancelTaskBtn,
+  editTaskBtn,
+  closeEditTaskBtn,
   openProjectForm,
   closeProjectForm,
-  createProject,
   openTaskForm,
   cancelTask,
   createTaskDOM,
-  addTaskToContainer,
+  displayProjects,
+  renewDisplay,
+  openEditTaskForm,
+  closeEditTaskForm,
 };

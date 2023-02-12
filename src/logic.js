@@ -18,32 +18,19 @@ class Project {
 }
 
 class Task {
-  constructor(title, description, date, priority, complete) {
+  constructor(title, description, date, priority) {
     this.title = title;
     this.description = description;
     this.date = date;
     this.priority = priority;
-    this.complete = complete;
+    this.complete = false;
   }
 
-  set newTitle(newTitle) {
+  editTask(newTitle, newDescription, newDate, newPriority) {
     this.title = newTitle;
-  }
-
-  set newDescription(newDescription) {
     this.description = newDescription;
-  }
-
-  set newDate(newDate) {
     this.date = newDate;
-  }
-
-  set newPriority(newPriority) {
     this.priority = newPriority;
-  }
-
-  set newComplete(newComplete) {
-    this.complete = newComplete;
   }
 }
 
@@ -51,24 +38,9 @@ function createProjectArr(projectName) {
   let project2 = new Project(projectName);
   projects.push(project2);
 }
+
 function deleteProject(projectIndex) {
   projects.splice(projectIndex, 1);
 }
 
-function editTask(
-  newTitle,
-  newDescription,
-  newDate,
-  newPriority,
-  newComplete,
-  projectIndex,
-  taskIndex
-) {
-  projects[projectIndex].tasks[taskIndex].newTitle = newTitle;
-  projects[projectIndex].tasks[taskIndex].newDescription = newDescription;
-  projects[projectIndex].tasks[taskIndex].newDate = newDate;
-  projects[projectIndex].tasks[taskIndex].newPriority = newPriority;
-  projects[projectIndex].tasks[taskIndex].newComplete = newComplete;
-}
-
-export { projects, Project, Task, createProjectArr, deleteProject, editTask };
+export { projects, Project, Task, createProjectArr, deleteProject };
