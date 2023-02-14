@@ -1,4 +1,5 @@
 import { projects, deleteProject } from "./logic";
+import { saveChanges } from "./index";
 
 const content = document.querySelector(".content");
 const projectsContainer = document.querySelector(".projects-container");
@@ -86,19 +87,13 @@ function displayProjects() {
             ).textContent = `Task complete: no`;
           }
         }
-        console.log(
-          `inside a change-status checkbox ${
-            projects[changeStatus.dataset.cp].tasks[changeStatus.dataset.c]
-              .complete
-          }`
-        );
+        saveChanges();
       });
 
       const shortTask = document.createElement("p");
       shortTask.classList.add("short-task");
       shortTask.dataset.tt = taskDiv.dataset.tn;
       shortTask.dataset.ttp = taskDiv.dataset.pc;
-      console.log(shortTask.dataset.tt);
       shortTask.textContent = `${
         projects[shortTask.dataset.ttp].tasks[shortTask.dataset.tt].title
       } due ${
@@ -139,6 +134,7 @@ function displayProjects() {
           }`;
 
           let important;
+          const taskPriority = document.createElement("p");
 
           if (
             projects[viewDetailsBtn.dataset.vp].tasks[viewDetailsBtn.dataset.v]
@@ -147,9 +143,9 @@ function displayProjects() {
             important = "no";
           } else {
             important = "yes";
+            taskPriority.classList.add("priority");
           }
 
-          const taskPriority = document.createElement("p");
           taskPriority.textContent = `High priority: ${important}`;
 
           let completeness;
@@ -190,6 +186,13 @@ function displayProjects() {
         }
       });
 
+      if (
+        projects[viewDetailsBtn.dataset.vp].tasks[viewDetailsBtn.dataset.v]
+          .priority === true
+      ) {
+        taskDiv.setAttribute("id", "important");
+      }
+
       const openEditBtn = document.createElement("button");
       openEditBtn.setAttribute("type", "button");
       openEditBtn.textContent = "Edit";
@@ -211,7 +214,6 @@ function displayProjects() {
           projects[editTaskBtn.dataset.etp].tasks[
             editTaskBtn.dataset.et
           ].priority;
-        // editTaskBtn.dataset.editTaskBtn = j;
       });
 
       editTaskBtn.addEventListener("click", (e) => {
@@ -226,7 +228,7 @@ function displayProjects() {
         );
 
         console.log(projects);
-
+        saveChanges();
         closeEditTaskForm();
         renewDisplay();
       });
@@ -239,6 +241,7 @@ function displayProjects() {
       deleteTaskBtn.addEventListener("click", () => {
         projects[deleteTaskBtn.dataset.dp].deleteTask(deleteTaskBtn.dataset.d);
         console.log(projects);
+        saveChanges();
         renewDisplay();
       });
 
@@ -256,6 +259,7 @@ function displayProjects() {
     deleteProjectBtn.dataset.pd = p.dataset.p;
     deleteProjectBtn.addEventListener("click", () => {
       deleteProject(deleteProjectBtn.dataset.pd);
+      saveChanges();
       renewDisplay();
       console.log(projects);
     });

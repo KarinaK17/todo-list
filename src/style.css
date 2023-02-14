@@ -14,7 +14,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  background-color: rgb(161, 183, 255);
+  background-color: rgb(190, 205, 255);
 }
 
 .content {
@@ -187,11 +187,13 @@ h2 {
 .short-task {
   display: inline;
   margin-left: 10px;
+  font-weight: bold;
 }
 
 .button-container {
   display: flex;
   justify-content: center;
+  margin-top: 10px;
 }
 
 .task button {
@@ -244,4 +246,12 @@ h2 {
 .task-form button,
 .view-task button {
   font-size: clamp(15px, 1.2rem, 1.5vw);
+}
+
+#important {
+  background-color: rgb(255, 193, 79);
+}
+
+.priority {
+  font-weight: bold;
 }
