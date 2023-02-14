@@ -1,3 +1,4 @@
+import "./style.css";
 import { projects, createProjectArr, Task, Project } from "./logic";
 
 import {
